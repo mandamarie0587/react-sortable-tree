@@ -172,6 +172,12 @@ class ReactSortableTree extends Component {
         });
       }
     }
+
+    // Call the function to force the rows to recalculate their heights
+    if(window.List){
+      window.List.wrappedInstance.recomputeRowHeights(); 
+      window.List.wrappedInstance.forceUpdate();       
+    }
   }
 
   componentWillUnmount() {
@@ -555,6 +561,10 @@ class ReactSortableTree extends Component {
     );
   }
 
+  setRef(ref){
+    window.List = ref;
+  }
+
   render() {
     const {
       style,
@@ -636,6 +646,7 @@ class ReactSortableTree extends Component {
               {...scrollToInfo}
               verticalStrength={this.vStrength}
               horizontalStrength={this.hStrength}
+              ref={this.setRef}
               speed={30}
               scrollToAlignment="start"
               className="rst__virtualScrollOverride"
